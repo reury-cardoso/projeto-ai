@@ -29,17 +29,52 @@ Monorepo gerenciado com **NX**, dividido em:
 - **`apps/frontend`** — aplicação web em **React + Next.js**, responsável pela listagem e visualização dos perfis dos alunos.
 - **`apps/backend`** — API em **Node.js + NestJS**, responsável por buscar, agregar, tratar e servir os dados de LinkedIn e GitHub.
 
-O backend segue o padrão arquitetural **MVC** e princípios **SOLID** para organização das camadas (controllers, services/módulos de domínio, models/DTOs).
+O backend segue o padrão arquitetural **MVC** e princípios **SOLID** para organização das camadas (controllers, services/módulos de domínio, models/DTOs). Veja detalhes da estrutura interna em [CLAUDE.md](CLAUDE.md).
 
-> Estrutura de pastas detalhada do monorepo será documentada aqui conforme o workspace NX for criado.
+```
+apps/
+  frontend/           # React + Next.js (App Router)
+  backend/
+    src/
+      app/             # módulo raiz (bootstrap)
+      modules/
+        github/        # integração com a API do GitHub
+        linkedin/       # dados de LinkedIn autorizados pelo aluno (sem scraping)
+        profiles/        # agregação dos perfis (controller + service)
+```
 
 ## Como rodar o projeto
 
-> Projeto em fase inicial — instruções de setup serão adicionadas assim que o workspace NX, o app Next.js e o app NestJS forem criados.
+Pré-requisitos: Node.js 20+ e npm.
+
+```bash
+npm install
+cp .env.example .env   # preencha GITHUB_TOKEN se quiser evitar rate limit da API pública
+```
+
+Rodar cada app em modo desenvolvimento:
+
+```bash
+npx nx serve backend    # API NestJS em http://localhost:3000/api
+npx nx dev frontend     # Next.js em http://localhost:4200 (ou porta indicada no terminal)
+```
+
+Build de produção:
+
+```bash
+npx nx build backend
+npx nx build frontend
+```
+
+Lint e testes:
+
+```bash
+npx nx run-many -t lint test typecheck
+```
 
 ## Status
 
-🚧 Em estruturação inicial (definição de monorepo, apps e padrões de projeto).
+🚧 Scaffolding do monorepo NX concluído (frontend Next.js e backend NestJS criados). Integrações com GitHub/LinkedIn e telas do portal em desenvolvimento.
 
 ## Licença
 
