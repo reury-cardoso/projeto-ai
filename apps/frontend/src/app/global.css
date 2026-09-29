@@ -1,390 +1,266 @@
+@import 'tailwindcss';
+@source '../';
 
-    html {
-      -webkit-text-size-adjust: 100%;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-      line-height: 1.5;
-      tab-size: 4;
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: inherit;
-      line-height: inherit;
-      margin: 0;
-    }
-    h1,
-    h2,
-    p,
-    pre {
-      margin: 0;
-    }
-    *,
-    ::before,
-    ::after {
-      box-sizing: border-box;
-      border-width: 0;
-      border-style: solid;
-      border-color: currentColor;
-    }
-    h1,
-    h2 {
-      font-size: inherit;
-      font-weight: inherit;
-    }
-    a {
-      color: inherit;
-      text-decoration: inherit;
-    }
-    pre {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-    }
-    svg {
-      display: block;
-      vertical-align: middle;
-      shape-rendering: auto;
-      text-rendering: optimizeLegibility;
-    }
-    pre {
-      background-color: rgba(55, 65, 81, 1);
-      border-radius: 0.25rem;
-      color: rgba(229, 231, 235, 1);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-      overflow: scroll;
-      padding: 0.5rem 0.75rem;
-    }
+/* ────────────────────────────────────────────────────────────
+   Design system — PdA Perfis
+   Ver docs/design-plan.md na raiz do monorepo (fonte da verdade).
+   ──────────────────────────────────────────────────────────── */
 
-    .shadow {
-      box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-    .rounded {
-      border-radius: 1.5rem;
-    }
-    .wrapper {
-      width: 100%;
-    }
-    .container {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 768px;
-      padding-bottom: 3rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      color: rgba(55, 65, 81, 1);
-      width: 100%;
-    }
-    #welcome {
-      margin-top: 2.5rem;
-    }
-    #welcome h1 {
-      font-size: 3rem;
-      font-weight: 500;
-      letter-spacing: -0.025em;
-      line-height: 1;
-    }
-    #welcome span {
-      display: block;
-      font-size: 1.875rem;
-      font-weight: 300;
-      line-height: 2.25rem;
-      margin-bottom: 0.5rem;
-    }
-    #hero {
-      align-items: center;
-      background-color: hsla(214, 62%, 21%, 1);
-      border: none;
-      box-sizing: border-box;
-      color: rgba(55, 65, 81, 1);
-      display: grid;
-      grid-template-columns: 1fr;
-      margin-top: 3.5rem;
-    }
-    #hero .text-container {
-      color: rgba(255, 255, 255, 1);
-      padding: 3rem 2rem;
-    }
-    #hero .text-container h2 {
-      font-size: 1.5rem;
-      line-height: 2rem;
-      position: relative;
-    }
-    #hero .text-container h2 svg {
-      color: hsla(162, 47%, 50%, 1);
-      height: 2rem;
-      left: -0.25rem;
-      position: absolute;
-      top: 0;
-      width: 2rem;
-    }
-    #hero .text-container h2 span {
-      margin-left: 2.5rem;
-    }
-    #hero .text-container a {
-      background-color: rgba(255, 255, 255, 1);
-      border-radius: 0.75rem;
-      color: rgba(55, 65, 81, 1);
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 1rem 2rem;
-      text-decoration: inherit;
-    }
-    #hero .logo-container {
-      display: none;
-      justify-content: center;
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-    #hero .logo-container svg {
-      color: rgba(255, 255, 255, 1);
-      width: 66.666667%;
-    }
-    #middle-content {
-      align-items: flex-start;
-      display: grid;
-      gap: 4rem;
-      grid-template-columns: 1fr;
-      margin-top: 3.5rem;
-    }
-    #learning-materials {
-      padding: 2.5rem 2rem;
-    }
-    #learning-materials h2 {
-      font-weight: 500;
-      font-size: 1.25rem;
-      letter-spacing: -0.025em;
-      line-height: 1.75rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    .list-item-link {
-      align-items: center;
-      border-radius: 0.75rem;
-      display: flex;
-      margin-top: 1rem;
-      padding: 1rem;
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-      width: 100%;
-    }
-    .list-item-link svg:first-child {
-      margin-right: 1rem;
-      height: 1.5rem;
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-      width: 1.5rem;
-    }
-    .list-item-link > span {
-      flex-grow: 1;
-      font-weight: 400;
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    .list-item-link > span > span {
-      color: rgba(107, 114, 128, 1);
-      display: block;
-      flex-grow: 1;
-      font-size: 0.75rem;
-      font-weight: 300;
-      line-height: 1rem;
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    .list-item-link svg:last-child {
-      height: 1rem;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-      width: 1rem;
-    }
-    .list-item-link:hover {
-      color: rgba(255, 255, 255, 1);
-      background-color: hsla(162, 47%, 50%, 1);
-    }
-    .list-item-link:hover > span {}
-    .list-item-link:hover > span > span {
-      color: rgba(243, 244, 246, 1);
-    }
-    .list-item-link:hover svg:last-child {
-      transform: translateX(0.25rem);
-    }
-    #other-links {}
-    .button-pill {
-      padding: 1.5rem 2rem;
-      transition-duration: 300ms;
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      align-items: center;
-      display: flex;
-    }
-    .button-pill svg {
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-      flex-shrink: 0;
-      width: 3rem;
-    }
-    .button-pill > span {
-      letter-spacing: -0.025em;
-      font-weight: 400;
-      font-size: 1.125rem;
-      line-height: 1.75rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    .button-pill span span {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 300;
-      line-height: 1.25rem;
-    }
-    .button-pill:hover svg,
-    .button-pill:hover {
-      color: rgba(255, 255, 255, 1) !important;
-    }
-    #nx-console:hover {
-      background-color: rgba(0, 122, 204, 1);
-    }
-    #nx-console svg {
-      color: rgba(0, 122, 204, 1);
-    }
-    #nx-console-jetbrains {
-      margin-top: 2rem;
-    }
-    #nx-console-jetbrains:hover {
-      background-color: rgba(255, 49, 140, 1);
-    }
-    #nx-console-jetbrains svg {
-      color: rgba(255, 49, 140, 1);
-    }
-    #nx-repo:hover {
-      background-color: rgba(24, 23, 23, 1);
-    }
-    #nx-repo svg {
-      color: rgba(24, 23, 23, 1);
-    }
-    #nx-cloud {
-      margin-bottom: 2rem;
-      margin-top: 2rem;
-      padding: 2.5rem 2rem;
-    }
-    #nx-cloud > div {
-      align-items: center;
-      display: flex;
-    }
-    #nx-cloud > div svg {
-      border-radius: 0.375rem;
-      flex-shrink: 0;
-      width: 3rem;
-    }
-    #nx-cloud > div h2 {
-      font-size: 1.125rem;
-      font-weight: 400;
-      letter-spacing: -0.025em;
-      line-height: 1.75rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    #nx-cloud > div h2 span {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 300;
-      line-height: 1.25rem;
-    }
-    #nx-cloud p {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      margin-top: 1rem;
-    }
-    #nx-cloud pre {
-      margin-top: 1rem;
-    }
-    #nx-cloud a {
-      color: rgba(107, 114, 128, 1);
-      display: block;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      margin-top: 1.5rem;
-      text-align: right;
-    }
-    #nx-cloud a:hover {
-      text-decoration: underline;
-    }
-    #commands {
-      padding: 2.5rem 2rem;
-      margin-top: 3.5rem;
-    }
-    #commands h2 {
-      font-size: 1.25rem;
-      font-weight: 400;
-      letter-spacing: -0.025em;
-      line-height: 1.75rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    #commands p {
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.5rem;
-      margin-top: 1rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    details {
-      align-items: center;
-      display: flex;
-      margin-top: 1rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      width: 100%;
-    }
-    details pre > span {
-      color: rgba(181, 181, 181, 1);
-      display: block;
-    }
-    summary {
-      border-radius: 0.5rem;
-      display: flex;
-      font-weight: 400;
-      padding: 0.5rem;
-      cursor: pointer;
-      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    summary:hover {
-      background-color: rgba(243, 244, 246, 1);
-    }
-    summary svg {
-      height: 1.5rem;
-      margin-right: 1rem;
-      width: 1.5rem;
-    }
-    #love {
-      color: rgba(107, 114, 128, 1);
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      margin-top: 3.5rem;
-      opacity: 0.6;
-      text-align: center;
-    }
-    #love svg {
-      color: rgba(252, 165, 165, 1);
-      width: 1.25rem;
-      height: 1.25rem;
-      display: inline;
-      margin-top: -0.25rem;
-    }
-    @media screen and (min-width: 768px) {
-      #hero {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      #hero .logo-container {
-        display: flex;
-      }
-      #middle-content {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-  
+@theme {
+  /* cores oficiais da marca (fixas, não variam por tema) */
+  --color-roxo-profundo: #270c27;
+  --color-roxo-escuro: #4f174f;
+  --color-roxo-medio: #942c94;
+  --color-orquidea: #d062d0;
+  --color-azul-ceu: #88c9f7;
+  --color-amarelo: #eddc11;
+  --color-amarelo-claro: #f5ea70;
+  --color-amarelo-profundo: #302c03;
+  --color-cinza-50: #f9fafb;
+  --color-cinza-200: #e5e7eb;
+  --color-cinza-600: #4b5563;
+  --color-cinza-800: #1f2937;
+  --color-cinza-900: #111827;
+
+  /* tipografia — quatro vozes, ver design-plan.md §1 */
+  --font-display: var(--font-dela-gothic), system-ui, sans-serif;
+  --font-heading: var(--font-bricolage), var(--font-plex-sans), system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), var(--font-plex-sans), monospace;
+
+  /* raio — design-plan.md §3 */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --animate-rise: rise 620ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  --animate-breathe: breathe 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+  /* curvas de movimento — design-plan.md §4. soft pra cor/borda, glide pra elevação/transform. */
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-glide: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* tokens semânticos, mapeados pra utilities do Tailwind (bg-background, text-foreground, etc.) */
+@theme inline {
+  --color-background: var(--bg);
+  --color-nav: var(--nav);
+  --color-surface: var(--surface);
+  --color-raise: var(--raise);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-border: var(--hair);
+  --color-border-strong: var(--hair2);
+  --color-accent-text: var(--acc-text);
+  --color-tint: var(--tint);
+  --color-kbd: var(--kbd);
+  --color-spark: var(--spark);
+  --color-glass: var(--glass);
+  --color-glass-hi: var(--glass-hi);
+  --color-edge: var(--edge);
+  --color-edge-hi: var(--edge-hi);
+  --color-spec: var(--spec);
+  --color-card: var(--card-bg);
+  --color-card-foreground: var(--card-fg);
+  --color-card-muted: var(--card-muted);
+}
+
+:root,
+.dark {
+  --bg: #270c27;
+  --nav: rgb(39 12 39 / 80%);
+  --surface: rgb(79 23 79 / 34%);
+  --raise: rgb(249 250 251 / 6%);
+  --fg: #f9fafb;
+  --muted: rgb(249 250 251 / 64%);
+  --faint: rgb(249 250 251 / 46%);
+  --hair: rgb(249 250 251 / 11%);
+  --hair2: rgb(249 250 251 / 26%);
+  --acc-text: #eddc11;
+  --tint: rgb(237 220 17 / 14%);
+  --kbd: rgb(249 250 251 / 7%);
+  --spark: #eddc11;
+  --glass: rgb(249 250 251 / 5%);
+  --glass-hi: rgb(249 250 251 / 8.5%);
+  --edge: rgb(249 250 251 / 13%);
+  --edge-hi: rgb(249 250 251 / 28%);
+  --spec: rgb(249 250 251 / 12%);
+  --depth: 0 1px 2px rgb(0 0 0 / 28%), 0 16px 34px -18px rgb(0 0 0 / 60%);
+  --depth-hi: 0 2px 8px rgb(0 0 0 / 34%), 0 32px 64px -28px rgb(0 0 0 / 92%);
+  --ambient: radial-gradient(920px 640px at 8% 4%, rgb(148 44 148 / 36%), transparent 62%),
+    radial-gradient(800px 560px at 92% 18%, rgb(136 201 247 / 13%), transparent 64%),
+    radial-gradient(880px 660px at 60% 94%, rgb(208 98 208 / 15%), transparent 66%);
+
+  /* cartão do aluno — design-plan.md §5. Duas variantes fixas, uma por tema. */
+  --card-bg: #4f174f;
+  --card-fg: #f9fafb;
+  --card-muted: rgb(249 250 251 / 45%);
+  --card-layer-a: var(--color-orquidea);
+  --card-layer-b: var(--color-roxo-medio);
+  --card-shadow: inset 0 1px 0 rgb(249 250 251 / 16%), 0 2px 4px rgb(0 0 0 / 28%),
+    0 22px 44px -16px rgb(0 0 0 / 70%);
+}
+
+.light {
+  --bg: #f4f2f5;
+  --nav: rgb(244 242 245 / 82%);
+  --surface: #ffffff;
+  --raise: rgb(39 12 39 / 4.5%);
+  --fg: #270c27;
+  --muted: #4b5563;
+  --faint: rgb(39 12 27 / 62%);
+  --hair: rgb(39 12 39 / 9%);
+  --hair2: rgb(39 12 39 / 22%);
+  --acc-text: #942c94;
+  --tint: rgb(148 44 148 / 10%);
+  --kbd: rgb(39 12 39 / 5%);
+  --spark: #942c94;
+  --glass: rgb(255 255 255 / 56%);
+  --glass-hi: rgb(255 255 255 / 80%);
+  --edge: rgb(39 12 39 / 8%);
+  --edge-hi: rgb(39 12 39 / 18%);
+  --spec: rgb(255 255 255 / 95%);
+  --depth: 0 1px 2px rgb(39 12 39 / 5%), 0 16px 36px -24px rgb(39 12 39 / 26%);
+  --depth-hi: 0 2px 8px rgb(39 12 39 / 7%), 0 30px 60px -28px rgb(39 12 39 / 32%);
+  --ambient: radial-gradient(920px 640px at 8% 4%, rgb(148 44 148 / 11%), transparent 62%),
+    radial-gradient(800px 560px at 92% 18%, rgb(136 201 247 / 15%), transparent 64%),
+    radial-gradient(880px 660px at 60% 94%, rgb(208 98 208 / 10%), transparent 66%);
+
+  --card-bg: #ffffff;
+  --card-fg: #270c27;
+  --card-muted: #4b5563;
+  --card-layer-a: var(--color-amarelo-claro);
+  --card-layer-b: var(--color-cinza-200);
+  --card-shadow: inset 0 1px 0 rgb(39 12 39 / 7%), 0 1px 1px rgb(39 12 39 / 7%),
+    0 18px 36px -14px rgb(39 12 39 / 28%);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.28;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  html.light {
+    color-scheme: light;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background 400ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  ::selection {
+    background: var(--color-amarelo);
+    color: var(--color-roxo-profundo);
+  }
+  *:focus-visible {
+    outline: 2px solid var(--color-azul-ceu);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* material de vidro — design-plan.md §3. Precisa de --ambient atrás pra ter algo pra refratar. */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 1px solid var(--edge);
+    box-shadow:
+      inset 0 1px 0 var(--spec),
+      var(--depth);
+    transition:
+      background 260ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 260ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-control {
+    background: var(--glass);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    box-shadow: inset 0 1px 0 var(--spec);
+  }
+  .ambient-layer {
+    background-image: var(--ambient);
+  }
+  .label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .lead {
+    font-size: 19px;
+    line-height: 1.55;
+    letter-spacing: -0.012em;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+  .prose-body {
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.006em;
+  }
+  /* corte diagonal + canto arredondado do cartão do aluno — design-plan.md §5 */
+  .card-clip {
+    clip-path: polygon(0 0, 93% 0, 100% 7%, 100% 100%, 0 100%);
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* transição de página — next-view-transitions, ver docs/design-plan.md §4 (mesma curva usada em elevação) */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: pda-page-out 220ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  ::view-transition-new(root) {
+    animation: pda-page-in 320ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+}
+
+@keyframes pda-page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes pda-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
