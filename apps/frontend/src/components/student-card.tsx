@@ -37,11 +37,11 @@ export function StudentCard({
 
   const onEnter = contextSafe(() => {
     gsap.to('.card-inner', { 
-      rotationX: 2.5, 
-      rotationY: -3.5, 
-      y: -8, 
-      duration: 0.5, 
-      ease: 'back.out(1.5)',
+      rotationX: 1.5, 
+      rotationY: -2, 
+      y: -6, 
+      duration: 0.6, 
+      ease: 'power3.out',
       overwrite: 'auto'
     });
   });
@@ -51,7 +51,7 @@ export function StudentCard({
       rotationX: 0, 
       rotationY: 0, 
       y: 0, 
-      duration: 0.5, 
+      duration: 0.6, 
       ease: 'power3.out',
       overwrite: 'auto'
     });
@@ -62,10 +62,10 @@ export function StudentCard({
       ref={containerRef}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className={cn('[perspective:1600px]', className)} 
+      className={cn('h-full [perspective:1600px]', className)} 
       style={isAmarelo ? AMARELO_VARS : undefined}
     >
-      <div className="relative">
+      <div className="relative h-full">
         <div
           aria-hidden
           className="card-clip absolute inset-0"
@@ -77,21 +77,12 @@ export function StudentCard({
           style={{ transform: 'translate(9px,9px) rotate(1.5deg)', background: 'var(--card-layer-b)' }}
         />
         <div
-          className="card-inner card-clip relative bg-card p-7 text-card-foreground [transform-style:preserve-3d]"
+          className="card-inner card-clip relative flex h-full flex-col bg-card p-7 text-card-foreground [transform-style:preserve-3d]"
           style={{ boxShadow: 'var(--card-shadow)' }}
         >
-          <div className="mb-4.5 flex items-center justify-between gap-3">
-            <h3 className="font-display text-[22px] leading-none tracking-[-0.022em] uppercase">
-              {student.name}
-            </h3>
-            <div
-              aria-hidden
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-pill text-[13.5px] font-bold tracking-[.02em]"
-              style={{ background: isAmarelo ? 'var(--color-roxo-medio)' : 'var(--color-amarelo)', color: isAmarelo ? 'var(--color-amarelo)' : 'var(--color-roxo-profundo)' }}
-            >
-              {student.initials}
-            </div>
-          </div>
+          <h3 className="mb-4.5 font-display text-[22px] leading-none tracking-[-0.022em] uppercase">
+            {student.name}
+          </h3>
 
           <div className="mb-4.5 flex gap-4">
             <span className="label" style={{ color: isAmarelo ? 'var(--card-fg)' : 'var(--color-amarelo-claro)' }}>
@@ -116,7 +107,7 @@ export function StudentCard({
             <LanguageBar languages={student.github.languages} />
           </div>
 
-          <div className="flex flex-col gap-2.5 text-[13.5px] font-medium tracking-[-0.008em]">
+          <div className="mt-auto flex flex-col gap-2.5 text-[13.5px] font-medium tracking-[-0.008em]">
             <MarkedLink href={`/alunos/${student.slug}`} block>
               GitHub — {student.github.featuredRepos[0]?.description ?? student.github.bio}
             </MarkedLink>

@@ -1,6 +1,5 @@
 import { Avatar } from '@/components/ui/avatar';
 import { GlassPanel } from '@/components/ui/glass-panel';
-import { Tag } from '@/components/ui/pill';
 import { PLATFORM_STATS } from '@/lib/mock-data';
 
 const R = 54;
@@ -23,15 +22,14 @@ export function CompositionPanel({ className }: { className?: string }) {
   return (
     <GlassPanel className={`flex flex-col p-6 ${className ?? ''}`}>
       <div className="mb-5 flex items-center justify-between gap-3">
-        <span className="label text-faint">Composição da rede</span>
-        <Tag>ao vivo</Tag>
+        <span className="label text-faint">Nossa rede</span>
       </div>
 
       <div className="flex flex-wrap items-center gap-6">
         <svg
           viewBox="0 0 140 140"
           role="img"
-          aria-label={`Distribuição dos alunos: ${PLATFORM_STATS.pool.map((p) => `${p.pct}% ${p.name.toLowerCase()}`).join(', ')}`}
+          aria-label={`Distribuição dos talentos: ${PLATFORM_STATS.pool.map((p) => `${p.pct}% ${p.name.toLowerCase()}`).join(', ')}`}
           className="h-[140px] w-[140px] shrink-0 text-foreground"
         >
           <circle cx="70" cy="70" r={R} fill="none" stroke="var(--edge)" strokeWidth="15" />
@@ -64,7 +62,7 @@ export function CompositionPanel({ className }: { className?: string }) {
             fill="currentColor"
             opacity={0.55}
           >
-            ALUNOS
+            TALENTOS
           </text>
         </svg>
 

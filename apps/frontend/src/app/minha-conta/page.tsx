@@ -18,7 +18,7 @@ export default function MinhaContaPage() {
         index="—"
         eyebrow="Minha conta"
         title={`Olá, ${student.name.split(' ')[0]}`}
-        lead="Edite seus dados do LinkedIn e controle a visibilidade do seu perfil na vitrine pública."
+        lead="Publique seus projetos, edite seus dados do LinkedIn e controle a visibilidade do seu perfil."
         className="mb-10"
       />
       <AccountDashboard student={student} />

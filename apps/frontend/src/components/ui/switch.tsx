@@ -19,17 +19,16 @@ export function Switch({
       aria-label={label}
       onClick={() => onChange(!checked)}
       className={cn(
-        'relative h-6 w-11 shrink-0 rounded-pill transition-[background-color,transform] duration-300 ease-glide hover:scale-105 active:scale-95',
-        checked ? 'bg-amarelo' : 'bg-white/15',
+        'relative h-6 w-11 shrink-0 rounded-pill transition-[background-color,scale] duration-300 ease-glide active:scale-95',
+        checked ? 'bg-amarelo' : 'bg-border-strong',
       )}
     >
       <span
         aria-hidden
         className={cn(
-          'absolute top-0.5 h-5 w-5 rounded-pill bg-roxo-profundo transition-transform duration-300 ease-glide',
-          checked ? 'translate-x-[22px]' : 'translate-x-0.5',
+          'absolute top-0.5 left-0 h-5 w-5 rounded-pill shadow-sm transition-[translate,background-color] duration-300 ease-glide',
+          checked ? 'translate-x-[22px] bg-roxo-profundo' : 'translate-x-0.5 bg-foreground',
         )}
-        style={{ background: checked ? 'var(--color-roxo-profundo)' : 'var(--fg)' }}
       />
     </button>
   );

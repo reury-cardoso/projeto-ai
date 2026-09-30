@@ -30,7 +30,7 @@ export function TextInput(props: InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={cn(
-        'h-11 w-full rounded-md border border-border bg-raise px-3.5 text-[14px] tracking-[-0.006em] text-foreground outline-none transition-colors placeholder:text-faint focus:border-azul-ceu',
+        'h-11 w-full rounded-md border border-border bg-raise px-3.5 text-[14px] tracking-[-0.006em] text-foreground outline-none transition-[border-color,box-shadow,background-color] duration-300 ease-soft placeholder:text-faint hover:border-border-strong focus:border-azul-ceu focus:shadow-[0_0_0_3px_rgb(136_201_247/18%)]',
         props.className,
       )}
     />
@@ -42,7 +42,7 @@ export function TextArea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
     <textarea
       {...props}
       className={cn(
-        'w-full resize-y rounded-md border border-border bg-raise px-3.5 py-3 text-[14px] tracking-[-0.006em] text-foreground outline-none transition-colors placeholder:text-faint focus:border-azul-ceu',
+        'w-full resize-y rounded-md border border-border bg-raise px-3.5 py-3 text-[14px] tracking-[-0.006em] text-foreground outline-none transition-[border-color,box-shadow,background-color] duration-300 ease-soft placeholder:text-faint hover:border-border-strong focus:border-azul-ceu focus:shadow-[0_0_0_3px_rgb(136_201_247/18%)]',
         props.className,
       )}
     />

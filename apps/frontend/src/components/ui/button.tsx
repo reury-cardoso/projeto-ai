@@ -103,8 +103,6 @@ export function Button({ variant = 'primary', icon, className, children, ...prop
     onMouseLeave: onLeave,
     onMouseDown: onDown,
     onMouseUp: onUp,
-    onFocus: onEnter,
-    onBlur: onLeave,
   };
 
   if ('href' in props && props.href) {

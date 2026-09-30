@@ -41,7 +41,7 @@ export function VitrineGrid() {
   return (
     <div>
       <div className="glass mb-8 flex flex-col gap-4 rounded-lg p-5 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex h-11 items-center gap-2.5 rounded-md border border-border bg-raise px-3.5 sm:w-[280px]">
+        <div className="flex h-11 items-center gap-2.5 rounded-md border border-border bg-raise px-3.5 transition-[border-color,box-shadow] duration-300 ease-soft hover:border-border-strong focus-within:border-azul-ceu focus-within:shadow-[0_0_0_3px_rgb(136_201_247/18%)] sm:w-[280px]">
           <Search size={15} strokeWidth={1.7} className="shrink-0 text-faint" />
           <input
             type="search"
@@ -59,7 +59,7 @@ export function VitrineGrid() {
             value={cohort}
             onChange={(e) => setCohort(e.target.value)}
             aria-label="Filtrar por turma"
-            className="h-8 rounded-pill border border-border bg-transparent px-3 text-[12.5px] font-semibold text-muted outline-none"
+            className="h-8 rounded-pill border border-border bg-transparent px-3 text-[12.5px] font-semibold text-muted outline-none transition-[border-color,color] duration-300 ease-soft hover:border-border-strong hover:text-foreground focus:border-azul-ceu"
           >
             <option value="all">Todas as turmas</option>
             {COHORTS.map((c) => (
@@ -76,13 +76,15 @@ export function VitrineGrid() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="glass rounded-lg p-12 text-center text-muted">
+        <div className="glass enter rounded-lg p-12 text-center text-muted">
           Nenhum aluno encontrado com esses filtros.
         </div>
       ) : (
         <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((s) => (
-            <StudentTile key={s.id} student={s} />
+          {filtered.map((s, i) => (
+            <div key={s.id} className="enter" style={{ animationDelay: `${Math.min(i, 8) * 45}ms` }}>
+              <StudentTile student={s} />
+            </div>
           ))}
         </div>
       )}

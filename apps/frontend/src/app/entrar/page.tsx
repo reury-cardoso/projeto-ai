@@ -12,12 +12,12 @@ export default function EntrarPage() {
     <AuthCard
       eyebrow="Acesso"
       title="Entrar"
-      lead="Área do aluno e do admin. Se você é aluno e recebeu um convite, use o link de primeiro acesso."
+      lead="Área do aluno e do admin. Se você é aluno e recebeu um convite, peça o link de primeiro acesso por e-mail."
       footer={
         <>
           Primeiro acesso?{' '}
-          <Link href="/primeiro-acesso" className="font-medium text-accent-text transition-opacity duration-300 ease-soft hover:opacity-80">
-            Definir senha
+          <Link href="/reenviar-convite" className="font-medium text-accent-text transition-opacity duration-300 ease-soft hover:opacity-80">
+            Receber link por e-mail
           </Link>
         </>
       }

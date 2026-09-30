@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/section-heading';
 
 export const metadata: Metadata = {
-  title: 'Sobre — PdA Perfis',
+  title: 'Nossa missão — PdA Talentos',
   description: 'Programadores do Amanhã: formação em tecnologia para jovens negros e indígenas.',
 };
 
 const PILLARS = [
   {
     title: 'Excelência técnica',
-    text: 'Nossos alunos constroem uma base sólida em desenvolvimento de software desde o primeiro dia, aplicando o conhecimento em projetos reais com impacto social.',
+    text: 'Nossos talentos constroem uma base sólida em desenvolvimento de software desde o primeiro dia, aplicando o conhecimento em projetos reais com impacto social.',
   },
   {
     title: 'Ponte com o mercado',
-    text: 'Criamos este portal exclusivo para reduzir o atrito no recrutamento, entregando contexto técnico e profissional com clareza para quem contrata.',
+    text: 'Aproximamos empresas de talentos preparados, com contexto técnico e profissional claro para quem contrata.',
   },
   {
     title: 'High Agency',
@@ -30,13 +30,13 @@ export default function SobrePage() {
         index="—"
         eyebrow="Nossa missão"
         title="Transformando o mercado de tecnologia"
-        lead="A Programadores do Amanhã é dedicada a capacitar jovens negros e indígenas para o setor tech. Esta plataforma é a ponte entre o alto potencial da nossa rede e as melhores oportunidades no mercado de trabalho."
+        lead="A Programadores do Amanhã é dedicada a capacitar jovens negros e indígenas para o setor tech. Conectamos esse potencial às empresas que querem times mais fortes e diversos."
         className="mb-14 max-w-[900px]"
       />
 
       <div className="grid gap-4 sm:grid-cols-3">
         {PILLARS.map((p) => (
-          <div key={p.title} className="glass rounded-lg p-6">
+          <div key={p.title} className="glass glass-hover glass-lift rounded-lg p-6">
             <h3 className="font-heading text-[18px] font-semibold tracking-[-0.018em]">{p.title}</h3>
             <p className="prose-body mt-2.5 text-muted">{p.text}</p>
           </div>

@@ -1,66 +1,15 @@
-'use client';
-
-import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 import { Avatar } from '@/components/ui/avatar';
 import { Pill } from '@/components/ui/pill';
 import { STATUS_COLOR, STATUS_LABEL, activityStrip, type Student } from '@/lib/mock-data';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 export function StudentTile({ student }: { student: Student }) {
   const strip = activityStrip(Number(student.id) * 7, 18);
-  const containerRef = useRef<HTMLAnchorElement>(null);
-  
-  const { contextSafe } = useGSAP({ scope: containerRef });
-
-  const onEnter = contextSafe(() => {
-    gsap.to(containerRef.current, { 
-      y: -4, 
-      backgroundColor: 'var(--glass-hi)', 
-      borderColor: 'var(--edge-hi)', 
-      boxShadow: 'inset 0 1px 0 var(--spec), var(--depth-hi)', 
-      duration: 0.4, 
-      ease: 'power3.out', 
-      overwrite: 'auto' 
-    });
-    gsap.to('.arrow-icon', { x: 0, opacity: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
-  });
-
-  const onLeave = contextSafe(() => {
-    gsap.to(containerRef.current, { 
-      y: 0, 
-      scale: 1, 
-      backgroundColor: 'var(--glass)', 
-      borderColor: 'var(--edge)', 
-      boxShadow: 'inset 0 1px 0 var(--spec), var(--depth)', 
-      duration: 0.4, 
-      ease: 'power3.out', 
-      overwrite: 'auto' 
-    });
-    gsap.to('.arrow-icon', { x: -4, opacity: 0, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
-  });
-
-  const onDown = contextSafe(() => {
-    gsap.to(containerRef.current, { scale: 0.98, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
-  });
-
-  const onUp = contextSafe(() => {
-    gsap.to(containerRef.current, { scale: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
-  });
-
   return (
     <Link
-      ref={containerRef}
       href={`/alunos/${student.slug}`}
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onMouseDown={onDown}
-      onMouseUp={onUp}
-      onFocus={onEnter}
-      onBlur={onLeave}
-      className="group glass block rounded-lg p-4.5"
+      className="group glass glass-hover glass-lift block h-full rounded-lg p-4.5"
     >
       <div className="mb-3.5 flex items-center gap-3">
         <Avatar initials={student.initials} bg={student.avatarBg} size={38} />
@@ -70,7 +19,7 @@ export function StudentTile({ student }: { student: Student }) {
         </div>
         <span
           aria-hidden
-          className="arrow-icon -translate-x-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-pill bg-tint text-accent-text opacity-0"
+          className="flex h-7 w-7 shrink-0 -translate-x-1 items-center justify-center rounded-pill bg-tint text-accent-text opacity-0 transition-[opacity,transform] duration-300 ease-glide group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
         >
           <ArrowRight size={13} strokeWidth={2.2} />
         </span>

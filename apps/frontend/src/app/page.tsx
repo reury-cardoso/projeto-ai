@@ -2,21 +2,19 @@
 
 import { useRef } from 'react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import { Link } from 'next-view-transitions';
 import { Button } from '@/components/ui/button';
 import { CompositionPanel } from '@/components/composition-panel';
 import { HeroGrid } from '@/components/hero-grid';
 import { MetricsRow } from '@/components/metrics-row';
-import { MechanismDiagram } from '@/components/mechanism-diagram';
+import { StackGrid } from '@/components/stack-grid';
+import { ValidationSteps } from '@/components/validation-steps';
+import { ContactForm } from '@/components/contact-form';
+import { HiringFaq } from '@/components/hiring-faq';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { StudentTile } from '@/components/student-tile';
-import { Avatar } from '@/components/ui/avatar';
-import { STUDENTS } from '@/lib/mock-data';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 export default function HomePage() {
-  const preview = STUDENTS.slice(0, 3);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -54,7 +52,7 @@ export default function HomePage() {
               </h1>
 
               <p className="gsap-rise lead mt-6 ml-[clamp(4px,1vw,13px)] max-w-[44ch]">
-                Nossa plataforma centraliza a trajetória, os projetos e o perfil de cada aluno da Programadores do Amanhã, facilitando a conexão entre a sua empresa e os melhores profissionais em início de carreira.
+                Desenvolvedores formados pela Programadores do Amanhã, com projetos reais e código que você pode avaliar antes mesmo da entrevista.
               </p>
 
               <div className="gsap-rise mt-7 ml-[clamp(4px,1vw,13px)] flex flex-wrap gap-3">
@@ -76,48 +74,40 @@ export default function HomePage() {
             <MetricsRow />
           </div>
 
-          <div className="mt-12">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="flex pl-2">
-                  {STUDENTS.slice(0, 4).map((s) => (
-                    <Avatar
-                      key={s.id}
-                      initials={s.initials}
-                      bg={s.avatarBg}
-                      size={30}
-                      className="-ml-2 border-2 border-background"
-                    />
-                  ))}
-                </div>
-                <span className="label text-faint">Destaques da nossa rede</span>
-              </div>
-              <Link href="/alunos" className="group inline-flex items-center gap-1 font-mono text-[11.5px] text-muted transition-colors duration-300 ease-soft hover:text-foreground">
-                ver todos os profissionais
-                <ArrowRight size={12} className="transition-transform duration-300 ease-glide group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {preview.map((s) => (
-                <StudentTile key={s.id} student={s} />
-              ))}
-            </div>
-          </div>
-
           <div className="h-20 lg:h-[104px]" />
         </div>
       </div>
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-14">
-        <div className="border-t border-border pt-16 pb-24" id="como-funciona">
+        <div className="py-12" id="encontre-pela-vaga">
           <SectionHeading
             index="01"
-            eyebrow="Nosso método"
-            title="Mais contexto, melhores contratações"
-            lead="Unimos a vivência profissional dos nossos alunos à prática real de código. O histórico do GitHub é integrado de forma transparente, enquanto os dados profissionais são adicionados com o consentimento de cada talento."
+            eyebrow="Tecnologias"
+            title="As tecnologias que nossos talentos dominam"
+            lead="Das mais fortes às emergentes: veja de cara em quais stacks a nossa rede está pronta para somar ao seu time."
           />
           <div className="mt-10">
-            <MechanismDiagram />
+            <StackGrid />
+          </div>
+        </div>
+
+        <div className="py-12" id="como-validamos">
+          <SectionHeading
+            index="02"
+            eyebrow="Por que contratar"
+            title="Talento com prova de trabalho"
+            lead="Cada talento chega com formação sólida, projetos entregues em equipe e código aberto para você conferir."
+          />
+          <div className="mt-10">
+            <ValidationSteps />
+          </div>
+        </div>
+
+        <div className="py-12" id="perguntas">
+          <SectionHeading index="03" eyebrow="Para empresas" title="Tire suas dúvidas com a gente" />
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:gap-8">
+            <HiringFaq />
+            <ContactForm />
           </div>
         </div>
 
@@ -128,7 +118,7 @@ export default function HomePage() {
                 Sua próxima contratação está aqui
               </h2>
               <p className="prose-body mt-2 max-w-[48ch] text-muted">
-                Utilize nossos filtros avançados por tecnologia, turma ou disponibilidade e encontre exatamente o profissional que a sua equipe precisa.
+                Filtre por tecnologia ou turma e encontre o profissional certo para o seu time.
               </p>
             </div>
             <Button href="/alunos" icon={<ArrowRight size={16} strokeWidth={2} />}>

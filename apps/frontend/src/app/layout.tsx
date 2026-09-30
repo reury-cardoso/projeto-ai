@@ -34,9 +34,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PdA Perfis — Programadores do Amanhã',
+  title: 'PdA Talentos — Programadores do Amanhã',
   description:
-    'Vitrine pública dos alunos da Programadores do Amanhã: GitHub e LinkedIn reunidos num perfil único para recrutadores.',
+    'Encontre desenvolvedores formados pela Programadores do Amanhã, com projetos reais e código que você pode avaliar antes da entrevista.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -18,7 +18,7 @@ export function ThemeToggle({ className }: { className?: string }) {
   const isDark = mounted ? resolvedTheme !== 'light' : true;
 
   const onEnter = contextSafe(() => {
-    gsap.to(containerRef.current, { scale: 1.1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+    gsap.to(containerRef.current, { scale: 1.05, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
   });
 
   const onLeave = contextSafe(() => {
@@ -26,11 +26,11 @@ export function ThemeToggle({ className }: { className?: string }) {
   });
 
   const onDown = contextSafe(() => {
-    gsap.to(containerRef.current, { scale: 0.9, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(containerRef.current, { scale: 0.94, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
   });
 
   const onUp = contextSafe(() => {
-    gsap.to(containerRef.current, { scale: 1.1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+    gsap.to(containerRef.current, { scale: 1.05, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
   });
 
   return (
@@ -42,8 +42,6 @@ export function ThemeToggle({ className }: { className?: string }) {
       onMouseLeave={onLeave}
       onMouseDown={onDown}
       onMouseUp={onUp}
-      onFocus={onEnter}
-      onBlur={onLeave}
       aria-label={isDark ? 'Ver versão clara' : 'Ver versão escura'}
       className={cn(
         'glass-control relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-pill border border-border text-muted transition-colors duration-300 hover:border-border-strong hover:text-foreground',

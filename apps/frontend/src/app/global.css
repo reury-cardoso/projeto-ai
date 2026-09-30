@@ -83,7 +83,7 @@
   --kbd: rgb(249 250 251 / 7%);
   --spark: #eddc11;
   --glass: rgb(249 250 251 / 5%);
-  --glass-hi: rgb(249 250 251 / 8.5%);
+  --glass-hi: rgb(249 250 251 / 10%);
   --edge: rgb(249 250 251 / 13%);
   --edge-hi: rgb(249 250 251 / 28%);
   --spec: rgb(249 250 251 / 12%);
@@ -148,6 +148,13 @@
   }
 }
 
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+}
+
 @keyframes breathe {
   0%,
   100% {
@@ -178,6 +185,15 @@
     background: var(--color-amarelo);
     color: var(--color-roxo-profundo);
   }
+  button:not(:disabled),
+  [role='switch'],
+  summary {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
   *:focus-visible {
     outline: 2px solid var(--color-azul-ceu);
     outline-offset: 3px;
@@ -187,6 +203,8 @@
 @layer components {
   /* material de vidro — design-plan.md §3. Precisa de --ambient atrás pra ter algo pra refratar. */
   .glass {
+    position: relative;
+    transform: translateZ(0);
     background: var(--glass);
     backdrop-filter: blur(22px) saturate(180%);
     -webkit-backdrop-filter: blur(22px) saturate(180%);
@@ -195,8 +213,38 @@
       inset 0 1px 0 var(--spec),
       var(--depth);
     transition:
-      background 260ms cubic-bezier(0.4, 0, 0.2, 1),
-      border-color 260ms cubic-bezier(0.4, 0, 0.2, 1);
+      background 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 320ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* a sombra de hover vive num pseudo-elemento e só troca opacidade: animar box-shadow
+     com blur grande sobre backdrop-filter repinta todo quadro e trava */
+  .glass::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: var(--depth-hi);
+    opacity: 0;
+    transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .glass-hover:hover,
+  .glass-hover:focus-visible {
+    background: var(--glass-hi);
+    border-color: var(--edge-hi);
+    transform: translateY(-3px);
+  }
+  .glass-hover:hover::after,
+  .glass-hover:focus-visible::after {
+    opacity: 1;
+  }
+  .glass-hover:active {
+    transform: translateY(-2px) scale(0.992);
+    transition-duration: 200ms;
+  }
+  .enter {
+    animation: enter 520ms cubic-bezier(0.32, 0.72, 0, 1) both;
   }
   .glass-control {
     background: var(--glass);
@@ -204,8 +252,32 @@
     -webkit-backdrop-filter: blur(18px) saturate(180%);
     box-shadow: inset 0 1px 0 var(--spec);
   }
+  /* logo: variante clara só no tema claro */
+  .logo-light {
+    display: none;
+  }
+  .light .logo-light {
+    display: block;
+  }
+  .light .logo-dark {
+    display: none;
+  }
+  /* ilustrações: variante clara só no tema claro (mesmo esquema do logo) */
+  .art-light {
+    display: none !important;
+  }
+  .light .art-light {
+    display: block !important;
+  }
+  .light .art-dark {
+    display: none !important;
+  }
   .ambient-layer {
     background-image: var(--ambient);
+    /* camada própria de composição: evita os "retângulos" de repintura atrás do vidro */
+    transform: translateZ(0);
+    will-change: transform;
+    contain: strict;
   }
   .label {
     font-size: 10px;
@@ -238,7 +310,6 @@
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
 

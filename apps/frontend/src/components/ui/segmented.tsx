@@ -26,7 +26,7 @@ export function Segmented({
   const { contextSafe } = useGSAP({ scope: containerRef });
 
   const onEnter = contextSafe((e: React.MouseEvent | React.FocusEvent) => {
-    gsap.to(e.currentTarget, { scale: 1.05, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+    gsap.to(e.currentTarget, { scale: 1.02, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
   });
 
   const onLeave = contextSafe((e: React.MouseEvent | React.FocusEvent) => {
@@ -34,11 +34,11 @@ export function Segmented({
   });
 
   const onDown = contextSafe((e: React.MouseEvent) => {
-    gsap.to(e.currentTarget, { scale: 0.95, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(e.currentTarget, { scale: 0.97, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
   });
 
   const onUp = contextSafe((e: React.MouseEvent) => {
-    gsap.to(e.currentTarget, { scale: 1.05, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
+    gsap.to(e.currentTarget, { scale: 1.02, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
   });
 
   return (
@@ -60,8 +60,6 @@ export function Segmented({
             onMouseLeave={onLeave}
             onMouseDown={onDown}
             onMouseUp={onUp}
-            onFocus={onEnter}
-            onBlur={onLeave}
             className={cn(
               'inline-flex h-8 items-center gap-1.5 rounded-pill px-3.5 text-[12.5px] font-semibold tracking-[-0.006em] transition-colors duration-300',
               active

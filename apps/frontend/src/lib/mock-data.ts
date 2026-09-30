@@ -37,6 +37,8 @@ export interface Student {
   status: StudentStatus;
   visible: boolean;
   avatarBg: string;
+  /** Caminho em /public (ex.: /alunos/ana-beatriz-souza.jpg). Sem foto, usa as iniciais. */
+  photo?: string;
   github: {
     username: string;
     bio: string;
@@ -199,6 +201,7 @@ export const STUDENTS: Student[] = [
   {
     id: '5',
     slug: 'juliana-farias',
+    photo: '/alunos/juliana-farias.jpg',
     name: 'Juliana Farias',
     initials: initials('Juliana Farias'),
     cohort: '2025.1',
@@ -279,3 +282,83 @@ export const PLATFORM_STATS = {
     { initials: 'AB', bg: 'var(--color-amarelo)', text: 'Ana entrou na turma 2025.2', time: '1d' },
   ],
 };
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+/** Post do feed "Projetos": o aluno conecta um repositório do GitHub e personaliza a apresentação. */
+export interface Project {
+  id: string;
+  repoName: string;
+  repoUrl: string;
+  title: string;
+  description: string;
+  links: ProjectLink[];
+  /** URL ou data URL da imagem de demonstração; opcional. */
+  image?: string;
+  createdAt: string;
+}
+
+const PROJECTS_BY_STUDENT: Record<string, Project[]> = {
+  '1': [
+    {
+      id: 'p1',
+      repoName: 'agenda-comunitaria',
+      repoUrl: '#',
+      title: 'Agenda Comunitária',
+      description:
+        'Sistema de agendamento para espaços comunitários, com calendário compartilhado e confirmação por e-mail. Usado por três associações de bairro.',
+      links: [
+        { label: 'Ver online', url: '#' },
+        { label: 'Vídeo de demonstração', url: '#' },
+      ],
+      createdAt: '2026-08-12',
+    },
+    {
+      id: 'p2',
+      repoName: 'pda-perfis',
+      repoUrl: '#',
+      title: 'Vitrine de talentos do PdA',
+      description: 'Portal com os perfis dos alunos do PdA, integrando GitHub e LinkedIn.',
+      links: [{ label: 'Ver online', url: '#' }],
+      createdAt: '2026-06-03',
+    },
+  ],
+  '5': [
+    {
+      id: 'p4',
+      repoName: 'app-transporte',
+      repoUrl: '#',
+      title: 'App de transporte coletivo',
+      description: 'Aplicativo em Flutter com horários e rotas de ônibus em tempo real para moradores da periferia.',
+      links: [
+        { label: 'Baixar o app', url: '#' },
+        { label: 'Vídeo de demonstração', url: '#' },
+      ],
+      createdAt: '2026-07-02',
+    },
+  ],
+  '2': [
+    {
+      id: 'p3',
+      repoName: 'fila-mensageria',
+      repoUrl: '#',
+      title: 'Fila de mensageria',
+      description: 'Fila de mensagens com Node.js e Redis, com reprocessamento automático de falhas e painel de monitoramento.',
+      links: [{ label: 'Documentação', url: '#' }],
+      createdAt: '2026-07-20',
+    },
+  ],
+};
+
+export function getProjects(studentId: string): Project[] {
+  return [...(PROJECTS_BY_STUDENT[studentId] ?? [])].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+/** Credenciais de demonstração do protótipo (sem backend de auth): entram como o primeiro aluno. */
+export const DEMO_STUDENT_LOGIN = { email: 'ana@pda.demo', password: 'demo1234' };
+
+/** Credencial de demonstração do admin (protótipo, sem backend de auth): entra em /admin. */
+export const DEMO_ADMIN_LOGIN = { email: 'admin@pda.demo', password: 'admin1234' };

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Field, TextInput } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
 import { StudentCard } from '@/components/student-card';
+import { ProjectManager } from './project-manager';
 import type { Student } from '@/lib/mock-data';
 
 export function AccountDashboard({ student }: { student: Student }) {
@@ -12,12 +13,15 @@ export function AccountDashboard({ student }: { student: Student }) {
   const [linkedin, setLinkedin] = useState(
     student.linkedin ?? { headline: '', currentPosition: '', education: '', profileUrl: '' },
   );
+  const [githubUrl, setGithubUrl] = useState(student.github.profileUrl);
   const [saved, setSaved] = useState(false);
+  const [githubSaved, setGithubSaved] = useState(false);
+  const githubUsername = githubUrl.match(/github\.com\/([\w-]+)/i)?.[1] ?? student.github.username;
 
   return (
     <div className="grid gap-10 lg:grid-cols-[340px_1fr] lg:gap-14">
       <div className="lg:sticky lg:top-24 lg:self-start">
-        <StudentCard student={{ ...student, visible, linkedin }} />
+        <StudentCard student={{ ...student, visible, linkedin, github: { ...student.github, profileUrl: githubUrl, username: githubUsername } }} />
       </div>
 
       <div className="flex flex-col gap-8">
@@ -29,6 +33,39 @@ export function AccountDashboard({ student }: { student: Student }) {
             </p>
           </div>
           <Switch checked={visible} onChange={setVisible} label="Visibilidade do perfil na vitrine" />
+        </section>
+
+        <section className="glass rounded-lg p-6">
+          <h2 className="font-heading text-[16px] font-semibold tracking-[-0.014em]">Seu GitHub</h2>
+          <p className="mt-1 mb-5 text-[13px] text-muted">
+            Repositórios, linguagens e atividade são lidos direto do GitHub a partir do link do seu perfil.
+          </p>
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setGithubSaved(true);
+            }}
+          >
+            <Field label="URL do GitHub" htmlFor="gh-url" hint={`Usuário detectado: @${githubUsername}`}>
+              <TextInput
+                id="gh-url"
+                type="url"
+                required
+                pattern="https?://(www\.)?github\.com/[\w\-]+/?"
+                value={githubUrl}
+                onChange={(e) => {
+                  setGithubUrl(e.target.value);
+                  setGithubSaved(false);
+                }}
+                placeholder="https://github.com/seu-usuario"
+              />
+            </Field>
+            <Button type="submit" className="mt-1 w-fit">
+              Salvar GitHub
+            </Button>
+            {githubSaved && <p className="text-[12.5px] text-accent-text">Salvo — os dados do GitHub serão atualizados no seu perfil.</p>}
+          </form>
         </section>
 
         <section className="glass rounded-lg p-6">
@@ -82,6 +119,8 @@ export function AccountDashboard({ student }: { student: Student }) {
             {saved && <p className="text-[12.5px] text-accent-text">Salvo — visível na vitrine agora.</p>}
           </form>
         </section>
+
+        <ProjectManager student={student} />
       </div>
     </div>
   );
