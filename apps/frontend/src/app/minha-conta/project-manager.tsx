@@ -2,7 +2,9 @@
 
 import { useRef, useState } from 'react';
 import { GitBranch, ImagePlus, Pencil, Plus, Trash2, X } from 'lucide-react';
+import { AccordionCard } from '@/components/ui/accordion-card';
 import { Button } from '@/components/ui/button';
+import { Modal } from '@/components/ui/modal';
 import { Field, TextArea, TextInput } from '@/components/ui/field';
 import { getProjects, type Project, type ProjectLink, type Student } from '@/lib/mock-data';
 
@@ -10,6 +12,7 @@ const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
 
 interface Draft {
   id: string | null;
+  repoUrl: string;
   repoName: string;
   title: string;
   description: string;
@@ -17,23 +20,33 @@ interface Draft {
   image?: string;
 }
 
+/** "https://github.com/user/repo(.git)" → "repo"; vazio se não for link de repositório. */
+const repoNameFromUrl = (url: string) => url.trim().match(/github\.com\/[\w.-]+\/([\w.-]+?)(?:\.git)?\/?$/i)?.[1] ?? '';
+
 const EMPTY_LINK: ProjectLink = { label: '', url: '' };
 
 /** Feed "Projetos": o aluno conecta um repositório e personaliza o post. Sem backend ainda, o estado é local. */
-export function ProjectManager({ student }: { student: Student }) {
-  const repos = student.github.featuredRepos;
+export function ProjectManager({
+  student,
+  open,
+  onOpenChange,
+}: {
+  student: Student;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   const [projects, setProjects] = useState<Project[]>(() => getProjects(student.id));
   const [draft, setDraft] = useState<Draft | null>(null);
   const [imageError, setImageError] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
 
   const startNew = () => {
-    const first = repos[0];
     setDraft({
       id: null,
-      repoName: first?.name ?? '',
-      title: first?.name ?? '',
-      description: first?.description ?? '',
+      repoUrl: '',
+      repoName: '',
+      title: '',
+      description: '',
       links: [{ ...EMPTY_LINK, label: 'Ver online' }],
     });
     setImageError('');
@@ -42,6 +55,7 @@ export function ProjectManager({ student }: { student: Student }) {
   const startEdit = (p: Project) => {
     setDraft({
       id: p.id,
+      repoUrl: p.repoUrl,
       repoName: p.repoName,
       title: p.title,
       description: p.description,
@@ -51,16 +65,16 @@ export function ProjectManager({ student }: { student: Student }) {
     setImageError('');
   };
 
-  const changeRepo = (name: string) => {
-    const repo = repos.find((r) => r.name === name);
+  const changeRepoUrl = (url: string) => {
+    const name = repoNameFromUrl(url);
     setDraft((d) =>
       d
         ? {
             ...d,
+            repoUrl: url,
             repoName: name,
-            // só sugere título/descrição do repositório se o aluno ainda não os personalizou
-            title: d.title === d.repoName || !d.title ? name : d.title,
-            description: d.description === (repos.find((r) => r.name === d.repoName)?.description ?? '') ? (repo?.description ?? '') : d.description,
+            // sugere o título a partir do link só enquanto o aluno não personalizou
+            title: !d.title || d.title === d.repoName ? name : d.title,
           }
         : d,
     );
@@ -82,11 +96,10 @@ export function ProjectManager({ student }: { student: Student }) {
   const publish = (e: React.FormEvent) => {
     e.preventDefault();
     if (!draft) return;
-    const repo = repos.find((r) => r.name === draft.repoName);
     const built: Project = {
       id: draft.id ?? `local-${Date.now()}`,
       repoName: draft.repoName,
-      repoUrl: repo?.url ?? student.github.profileUrl,
+      repoUrl: draft.repoUrl.trim(),
       title: draft.title.trim(),
       description: draft.description.trim(),
       links: draft.links.filter((l) => l.url.trim()).map((l) => ({ label: l.label.trim() || 'Ver projeto', url: l.url.trim() })),
@@ -98,41 +111,46 @@ export function ProjectManager({ student }: { student: Student }) {
   };
 
   return (
-    <section className="glass rounded-lg p-6">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h2 className="font-heading text-[16px] font-semibold tracking-[-0.014em]">Projetos</h2>
-          <p className="mt-1 text-[13px] text-muted">
-            Conecte um repositório e apresente o projeto no seu perfil.
-          </p>
-        </div>
-        {!draft && (
+    <AccordionCard
+      title="Projetos"
+      description="Conecte um repositório e apresente o projeto no seu perfil."
+      open={open}
+      onOpenChange={onOpenChange}
+      progress={{ done: projects.length > 0 ? 1 : 0, total: 1 }}
+      action={
+        (
           <button
             type="button"
-            onClick={startNew}
+            onClick={() => {
+              onOpenChange(true);
+              startNew();
+            }}
             className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-pill border border-border px-3.5 text-[13px] font-semibold text-foreground transition-[border-color,background-color] duration-300 ease-soft hover:border-border-strong hover:bg-raise"
           >
             <Plus size={14} strokeWidth={2} />
             Novo projeto
           </button>
-        )}
-      </div>
-
-      {draft && (
-        <form onSubmit={publish} className="mt-6 flex flex-col gap-4 border-t border-edge pt-6">
-          <Field label="Repositório do GitHub" htmlFor="pj-repo" hint="Vem da sua conta do GitHub conectada.">
-            <select
+        )
+      }
+    >
+      <Modal open={draft !== null} onClose={() => setDraft(null)} title={draft?.id ? 'Editar projeto' : 'Novo projeto'}>
+        {draft && (
+        <form onSubmit={publish} className="flex flex-col gap-4">
+          <Field
+            label="Link do repositório"
+            htmlFor="pj-repo"
+            hint={draft.repoName ? `Repositório: ${draft.repoName}` : 'Cole o link do repositório no GitHub.'}
+          >
+            <TextInput
               id="pj-repo"
-              value={draft.repoName}
-              onChange={(e) => changeRepo(e.target.value)}
-              className="h-11 w-full rounded-md border border-border bg-raise px-3.5 text-[14px] text-foreground outline-none transition-[border-color,box-shadow] duration-300 ease-soft hover:border-border-strong focus:border-azul-ceu focus:shadow-[0_0_0_3px_rgb(136_201_247/18%)]"
-            >
-              {repos.map((r) => (
-                <option key={r.name} value={r.name}>
-                  {r.name}
-                </option>
-              ))}
-            </select>
+              type="url"
+              required
+              pattern="https?://(www\.)?github\.com/[\w.\-]+/[\w.\-]+/?(\.git)?"
+              title="Link no formato https://github.com/usuario/repositorio"
+              value={draft.repoUrl}
+              onChange={(e) => changeRepoUrl(e.target.value)}
+              placeholder="https://github.com/usuario/repositorio"
+            />
           </Field>
 
           <Field label="Título" htmlFor="pj-title">
@@ -229,9 +247,10 @@ export function ProjectManager({ student }: { student: Student }) {
             </Button>
           </div>
         </form>
-      )}
+        )}
+      </Modal>
 
-      {projects.length > 0 && !draft && (
+      {projects.length > 0 && (
         <ul className="mt-5 flex flex-col border-t border-edge">
           {projects.map((p) => (
             <li key={p.id} className="flex items-center gap-3.5 border-b border-edge py-3 last:border-b-0">
@@ -269,6 +288,6 @@ export function ProjectManager({ student }: { student: Student }) {
           ))}
         </ul>
       )}
-    </section>
+    </AccordionCard>
   );
 }

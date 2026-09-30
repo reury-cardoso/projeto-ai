@@ -19,6 +19,11 @@ function rankStacks() {
       const cur = map.get(l.name);
       map.set(l.name, { count: (cur?.count ?? 0) + 1, color: cur?.color ?? l.color });
     }
+    for (const c of s.customStacks ?? []) {
+      if (map.has(c.name) && s.github.languages.some((l) => l.name === c.name)) continue;
+      const cur = map.get(c.name);
+      map.set(c.name, { count: (cur?.count ?? 0) + 1, color: cur?.color ?? c.color });
+    }
   }
   return [...map.entries()]
     .map(([name, v]) => ({ name, ...v }))

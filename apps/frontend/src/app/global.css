@@ -239,6 +239,12 @@
   .glass-hover:focus-visible::after {
     opacity: 1;
   }
+  /* mantém o realce do hover, mas sem subir o card */
+  .glass-hover.no-lift:hover,
+  .glass-hover.no-lift:focus-visible,
+  .glass-hover.no-lift:active {
+    transform: none;
+  }
   .glass-hover:active {
     transform: translateY(-2px) scale(0.992);
     transition-duration: 200ms;
@@ -333,5 +339,52 @@
   from {
     opacity: 0;
     transform: translateY(6px);
+  }
+}
+
+/* modal: abertura e fechamento suaves. Keyframes (não transition) pra funcionar em qualquer
+   navegador; o fechamento é conduzido pelo componente via data-closing. */
+@keyframes pda-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+}
+@keyframes pda-modal-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+@keyframes pda-backdrop-in {
+  from {
+    background-color: rgb(0 0 0 / 0%);
+    backdrop-filter: blur(0);
+  }
+}
+@keyframes pda-backdrop-out {
+  to {
+    background-color: rgb(0 0 0 / 0%);
+    backdrop-filter: blur(0);
+  }
+}
+dialog.pda-modal[open] {
+  animation: pda-modal-in 480ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+dialog.pda-modal[open]::backdrop {
+  background-color: rgb(0 0 0 / 60%);
+  backdrop-filter: blur(4px);
+  animation: pda-backdrop-in 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+dialog.pda-modal[open][data-closing] {
+  animation: pda-modal-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+dialog.pda-modal[open][data-closing]::backdrop {
+  animation: pda-backdrop-out 260ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog.pda-modal[open],
+  dialog.pda-modal[open]::backdrop {
+    animation-duration: 1ms;
   }
 }

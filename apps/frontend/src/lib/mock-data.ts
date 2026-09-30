@@ -22,6 +22,21 @@ export interface LanguageShare {
   color: string;
 }
 
+/** Tecnologia que o próprio aluno adiciona (não vem do GitHub, então não entra nos dados de linguagens). */
+export interface CustomStack {
+  name: string;
+  color: string;
+}
+
+/** Cores da marca sorteadas para as tecnologias adicionadas pelo aluno. */
+export const STACK_COLORS = [
+  'var(--color-amarelo)',
+  'var(--color-azul-ceu)',
+  'var(--color-orquidea)',
+  'var(--color-roxo-medio)',
+  'var(--color-amarelo-claro)',
+];
+
 export interface FeaturedRepo {
   name: string;
   description: string;
@@ -55,6 +70,10 @@ export interface Student {
     education: string;
     profileUrl: string;
   } | null;
+  /** Texto "sobre" escrito pelo próprio aluno (não vem do GitHub). */
+  bio?: string;
+  /** Tecnologias extras informadas pelo aluno, além das linguagens detectadas no GitHub. */
+  customStacks?: CustomStack[];
 }
 
 const HEAT_PATTERN = [
@@ -110,6 +129,11 @@ export const STUDENTS: Student[] = [
       education: 'Programadores do Amanhã — Turma 2025.2',
       profileUrl: '#',
     },
+    bio: 'Desenvolvedora Full Stack em formação, focada em produtos de impacto social.',
+    customStacks: [
+      { name: 'Figma', color: 'var(--color-orquidea)' },
+      { name: 'Docker', color: 'var(--color-azul-ceu)' },
+    ],
   },
   {
     id: '2',

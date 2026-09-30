@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Field, TextInput } from '@/components/ui/field';
+import { setDemoSession } from '@/lib/demo-session';
 import { DEMO_ADMIN_LOGIN, DEMO_STUDENT_LOGIN } from '@/lib/mock-data';
 
 export function LoginForm() {
@@ -17,10 +18,12 @@ export function LoginForm() {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
         if (form.get('email') === DEMO_ADMIN_LOGIN.email && form.get('password') === DEMO_ADMIN_LOGIN.password) {
+          setDemoSession({ role: 'admin', name: 'Administração PdA', initials: 'AD' });
           router.push('/admin');
           return;
         }
         if (form.get('email') === DEMO_STUDENT_LOGIN.email && form.get('password') === DEMO_STUDENT_LOGIN.password) {
+          setDemoSession({ role: 'student', name: 'Ana Beatriz Souza', initials: 'AB' });
           router.push('/minha-conta');
           return;
         }

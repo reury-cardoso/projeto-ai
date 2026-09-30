@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/cn';
 import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
+import { UserMenu } from './user-menu';
+import { useDemoSession } from '@/lib/demo-session';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -17,6 +19,7 @@ const LINKS = [
 
 export function Nav() {
   const pathname = usePathname();
+  const session = useDemoSession();
   const containerRef = useRef<HTMLDivElement>(null);
   const { contextSafe } = useGSAP({ scope: containerRef });
 
@@ -96,16 +99,20 @@ export function Nav() {
             <span className="flex-1 text-left text-[13px] tracking-[-0.006em]">Buscar talentos</span>
           </Link>
           <ThemeToggle />
-          <Link
-            href="/entrar"
-            onMouseEnter={onEnterBtn}
-            onMouseLeave={onLeaveBtn}
-            onMouseDown={onDownLink}
-            onMouseUp={onUpLink}
-            className="hidden h-9 items-center rounded-pill bg-amarelo px-4 text-[13px] font-semibold text-roxo-profundo transition-colors duration-300 hover:bg-amarelo-claro sm:inline-flex"
-          >
-            Entrar
-          </Link>
+          {session ? (
+            <UserMenu session={session} />
+          ) : (
+            <Link
+              href="/entrar"
+              onMouseEnter={onEnterBtn}
+              onMouseLeave={onLeaveBtn}
+              onMouseDown={onDownLink}
+              onMouseUp={onUpLink}
+              className="hidden h-9 items-center rounded-pill bg-amarelo px-4 text-[13px] font-semibold text-roxo-profundo transition-colors duration-300 hover:bg-amarelo-claro sm:inline-flex"
+            >
+              Entrar
+            </Link>
+          )}
         </div>
       </div>
     </div>

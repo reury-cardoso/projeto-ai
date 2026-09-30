@@ -4,7 +4,6 @@ import type { CSSProperties } from 'react';
 import { useRef } from 'react';
 import { ActivityGrid } from '@/components/ui/activity-grid';
 import { LanguageBar } from '@/components/ui/language-bar';
-import { MarkedLink } from '@/components/ui/marked-link';
 import { STATUS_LABEL, type Student } from '@/lib/mock-data';
 import { cn } from '@/lib/cn';
 import gsap from 'gsap';
@@ -39,7 +38,6 @@ export function StudentCard({
     gsap.to('.card-inner', { 
       rotationX: 1.5, 
       rotationY: -2, 
-      y: -6, 
       duration: 0.6, 
       ease: 'power3.out',
       overwrite: 'auto'
@@ -50,7 +48,6 @@ export function StudentCard({
     gsap.to('.card-inner', { 
       rotationX: 0, 
       rotationY: 0, 
-      y: 0, 
       duration: 0.6, 
       ease: 'power3.out',
       overwrite: 'auto'
@@ -66,16 +63,6 @@ export function StudentCard({
       style={isAmarelo ? AMARELO_VARS : undefined}
     >
       <div className="relative h-full">
-        <div
-          aria-hidden
-          className="card-clip absolute inset-0"
-          style={{ transform: 'translate(18px,18px) rotate(3deg)', background: 'var(--card-layer-a)' }}
-        />
-        <div
-          aria-hidden
-          className="card-clip absolute inset-0"
-          style={{ transform: 'translate(9px,9px) rotate(1.5deg)', background: 'var(--card-layer-b)' }}
-        />
         <div
           className="card-inner card-clip relative flex h-full flex-col bg-card p-7 text-card-foreground [transform-style:preserve-3d]"
           style={{ boxShadow: 'var(--card-shadow)' }}
@@ -107,16 +94,25 @@ export function StudentCard({
             <LanguageBar languages={student.github.languages} />
           </div>
 
-          <div className="mt-auto flex flex-col gap-2.5 text-[13.5px] font-medium tracking-[-0.008em]">
-            <MarkedLink href={`/alunos/${student.slug}`} block>
-              GitHub — {student.github.featuredRepos[0]?.description ?? student.github.bio}
-            </MarkedLink>
-            {student.linkedin && (
-              <MarkedLink href={`/alunos/${student.slug}`} block>
-                LinkedIn — {student.linkedin.headline}
-              </MarkedLink>
-            )}
-          </div>
+          {student.customStacks && student.customStacks.length > 0 && (
+            <>
+              <div className="label mb-2.5" style={{ color: 'var(--card-muted)' }}>
+                Outras tecnologias
+              </div>
+              <div className="mb-5.5 flex flex-wrap gap-1.5">
+                {student.customStacks.map((c) => (
+                  <span
+                    key={c.name}
+                    className="inline-flex h-[22px] items-center gap-1.5 rounded-pill px-2.5 text-[10.5px] font-medium"
+                    style={{ background: 'color-mix(in srgb, currentColor 10%, transparent)', color: 'var(--card-fg)' }}
+                  >
+                    <span aria-hidden className="h-[6px] w-[6px] rounded-pill" style={{ background: c.color }} />
+                    {c.name}
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

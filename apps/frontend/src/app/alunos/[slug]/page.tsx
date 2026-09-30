@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!student) return { title: 'Perfil não encontrado — PdA Talentos' };
   return {
     title: `${student.name} — PdA Talentos`,
-    description: student.linkedin?.headline ?? student.github.bio,
+    description: student.linkedin?.headline ?? student.bio ?? student.github.bio,
   };
 }
 
@@ -54,8 +54,8 @@ export default async function StudentProfilePage({ params }: { params: Promise<{
             </div>
           </div>
 
-          <section className="glass glass-hover rounded-lg p-6">
-            <p className="prose-body text-muted">{student.github.bio}</p>
+          <section className="glass glass-hover no-lift rounded-lg p-6">
+            <p className="prose-body text-muted">{student.bio ?? student.github.bio}</p>
 
             <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-edge pt-5 lg:grid-cols-4">
               {student.linkedin && (

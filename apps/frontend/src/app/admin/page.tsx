@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { AdminPanel } from './admin-panel';
+import { AdminDashboard } from './admin-dashboard';
 
 export const metadata: Metadata = {
   title: 'Admin — PdA Perfis',
@@ -12,11 +12,11 @@ export default function AdminPage() {
       <SectionHeading
         index="—"
         eyebrow="Painel administrativo"
-        title="Gerenciar alunos"
-        lead="Cadastre alunos, importe planilhas, acompanhe status e controle a visibilidade de cada perfil."
+        title="Painel do admin"
+        lead="Acompanhe a rede, gerencie alunos e resolva as solicitações pendentes."
         className="mb-10"
       />
-      <AdminPanel />
+      <AdminDashboard />
     </div>
   );
 }
